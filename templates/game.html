@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <title>Game</title>
+</head>
+<body>
+    <form action="/madlib">
+        <!-- <label>Person: <input type="text" name="person"></label> -->
+        <label>Person: 
+            <select name="person">
+                {% for person in people %}
+                    <option value={{person}}>{{person}}</option>
+                {% endfor %}
+            </select>
+        </label><br><br>
+        <label>Color: 
+            {% for color in colors %}
+                <input type="checkbox" name="color" value={{color}}>{{color}}
+            {% endfor %}
+        </label><br><br>
+
+        <label>Noun: <input type="text" name="noun"></label><br><br>
+        <label>Adjective: <input type="text" name="adjective"></label><br><br>
+        <input type="submit">
+    </form>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Madlib. LOL{% endblock %}
+
+{% block body %}
+    {% if num == 1 %}
+    <p>
+        There once was a {{ color }} {{ noun }} sitting in the Hackbright Lab. When {{ person }} went to pick it up, it burst into flames in a totally {{ adjective }} way.
+    </p>
+    {% endif %}
+    {% if num == 2 %}
+    <p>
+        One day {{ person }} was wearing a {{ color }} {{ noun }}, when a {{ adjective }} Balloonicorn appeared.
+    </p>
+    {% endif %}
+    {% if num == 3 %}
+    <p>
+        Yesterday a {{ color }} {{ noun }} stampeded through the Hackbright Lab. When {{ person }} tried to stop the stampede, they tripped over a {{ adjective }} Balloonicorn.
+    </p>
+    {% endif %}
+    {% if num == 4 %}
+    <p>
+        On a {{ adjective }} street, {{ person }} lives with a {{ color }} {{ noun }}.
+    </p>
+    {% endif %}
+{% endblock %}
