@@ -1,6 +1,6 @@
-from random import choice, randint
+from random import choice, randint, sample
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 
 # "__name__" is a special Python variable for the name of the current module
@@ -40,11 +40,11 @@ def greet_person():
     player = request.args.get("person")
     print player
 
-    compliment = choice(AWESOMENESS)
+    compliments = sample(AWESOMENESS, 3)
 
     return render_template("compliment.html",
                            person=player,
-                           compliment=compliment)
+                           compliments=compliments)
 
 @app.route('/game')
 def show_game_form():
@@ -53,28 +53,34 @@ def show_game_form():
         return render_template("game.html", 
             people=COOLPEEPS,
             colors=COLORS)
-    else:
+    elif response == "no":
         return render_template("goodbye.html")
+    else:
+        return redirect("/hello")
 
-@app.route('/madlib')
+@app.route('/madlib', methods=["GET","POST"])
 def show_madlib():
-    person = request.args.get("person")
+    if request.method == "POST":
+        person = request.form.get("person")
 
-    color = request.args.getlist("color")
-    color = "-".join(color)
+        color = request.form.getlist("color")
+        color = "-".join(color)
 
-    noun = request.args.get("noun")
+        noun = request.form.get("noun")
 
-    adjective = request.args.get("adjective")
+        adjective = request.form.get("adjective")
 
-    num = randint(1,4)
+        num = randint(1,4)
 
-    return render_template("madlib.html",
-                            num=num,
-                            person=person,
-                            color=color,
-                            noun=noun,
-                            adjective=adjective)
+        return render_template("madlib.html",
+                                num=num,
+                                person=person,
+                                color=color,
+                                noun=noun,
+                                adjective=adjective)
+
+    elif request.method == "GET":
+        return redirect('/hello')
 
 
 if __name__ == '__main__':
